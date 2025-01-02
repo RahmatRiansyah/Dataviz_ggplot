@@ -1,6 +1,6 @@
 ---
-title: "My Document"
-author: "Deden Istiawan-Institut Teknologi Statistika dan Bisnis Muhammadiyah"
+title: "Visualisasi Data dengan GGPLOT"
+author: "Rahmat Riansyah-Institut Teknologi Statistika dan Bisnis Muhammadiyah"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -38,7 +38,33 @@ library(readr)
 iris_iris <- read_csv("iris - iris.csv")
 View(iris_iris)
 ```
-
+```{r}
+library(ggplot2)
+data <- data.frame(x = rnorm(100), y = rnorm(100))
+ggplot(data, aes(x = x, y = y)) + 
+geom_point() + 
+labs(title = "Plot Titik", x = "Sumbu X", y = "Sumbu Y") +
+theme_dark()
+```
+```{r}
+data <- data.frame(x = rnorm(100), y = rnorm(100), grup = sample(c("A","B","C","D"), 100, replace = TRUE))
+ggplot(data, aes(x = x, y = y, color = grup)) +
+  geom_point() +
+  facet_wrap(~ grup) +
+  scale_color_manual(values = c("A" = "green", "B" = "red", "C" = "blue", "D" = "yellow")) +
+  theme_minimal()
+```
+```{r}
+library(readr)
+lizard <- read_csv("lizards.csv")
+View(lizard)
+```
+```{r}
+ggplot(lizard, aes(x = total_length , y = weight)) + 
+geom_point() +
+labs(title = "Plot Titik", x = "total_length" , y = "weight" )
+theme_dark()
+```
 
 
 ```{r cars}
