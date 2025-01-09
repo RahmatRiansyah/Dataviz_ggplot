@@ -51,6 +51,7 @@ geom_point() +
 labs(title = "Plot Titik", x = "Sumbu X", y = "Sumbu Y") +
 theme_dark()
 ```
+
 ### contoh kedua
 ```{r}
 # membuat data dengan base R
@@ -87,3 +88,38 @@ ggplot(lizard, aes(x = total_length , y = weight)) +
 geom_point() +
 labs(title = "Plot Titik", x = "total_length" , y = "weight" )
 ```
+
+```{r}
+ggplot(lizard, aes(x = total_length , y = common_name)) + 
+geom_jitter() +
+labs(title = "Plot Titik", x = "total_length" , y = "common_name" )
+```
+```{r}
+ggplot(lizard, aes(x = total_length)) + 
+geom_histogram() +
+labs(title = "Plot histogram", x = "total_length" )
+```
+```{r}
+ggplot(lizard, aes( , y = common_name)) + 
+geom_bar() +
+labs(title = "Plot Bar",  , y = "common_name" )
+```
+```{r}
+ggplot(lizard, aes(x = weight)) + 
+geom_histogram(colour = "blue", fill = "yellow", size = 2, linetype = "dotted") +
+labs(title = "Plot Histogram Berwarna", x = "weight" )
+```
+
+```{r}
+ggplot(lizard, aes(x = total_length , y = weight)) + 
+geom_point(colour = "blue", shape = 21, size = 1) +
+labs(title = "Plot Titik", x = "total_length" , y = "weight" )
+```
+```{r}
+ggplot(lizard, aes(x = total_length, y = weight, color = common_name, size = total_length)) + 
+  geom_point(shape = 19) + 
+  labs(title = "Plot Titik", x = "total_length", y = "weight") +
+  theme_minimal()
+```
+
+
