@@ -1,15 +1,14 @@
 ---
 title: "Visualisasi Data dengan GGPLOT"
-author: "Rahmat Riansyah-Institut Teknologi Statistika dan Bisnis Muhammadiyah"
+author: "Rahmat Riansyah - Institut Teknologi Statistika dan Bisnis Muhammadiyah"
 date: "`r Sys.Date()`"
 output: 
   html_document:
     css: style.css
     theme: flatly
-    higlight: zenburn
+    highlight: zenburn
     toc: true
-    toc_float:
-      collapsed: true
+    toc_float: true
     df_print: paged
 bibliography: references.bib
 ---
@@ -100,9 +99,9 @@ geom_histogram() +
 labs(title = "Plot histogram", x = "total_length" )
 ```
 ```{r}
-ggplot(lizard, aes( , y = common_name)) + 
+ggplot(lizard, aes(  y = common_name)) + 
 geom_bar() +
-labs(title = "Plot Bar",  , y = "common_name" )
+labs(title = "Plot Bar", y = "common_name" )
 ```
 ```{r}
 ggplot(lizard, aes(x = weight)) + 
@@ -122,4 +121,74 @@ ggplot(lizard, aes(x = total_length, y = weight, color = common_name, size = tot
   theme_minimal()
 ```
 
+```{r}
+library(gapminder)
+library(ggplot2)
+library(gganimate)
+```
 
+```{r}
+data=gapminder
+data
+```
+
+```{r}
+ggplot(data, aes(x = gdpPercap, y = lifeExp )) + 
+  geom_point(alpha = 0.6, colour = "navy") + 
+  scale_x_log10() +
+  labs(title = "Sebaran angka hidup perkapita", x = "gdpPercap", y = "lifeExp") +
+  theme_minimal()
+```
+```{r}
+gapminder_plot <- ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop )) + 
+  geom_point(alpha = 0.6) + 
+  scale_x_log10() +
+  scale_color_viridis_d(option = "viridis")+
+  labs(title = "Sebaran angka hidup perkapita", x = "gdpPercap", y = "lifeExp") +
+  theme_minimal()
+gapminder_plot
+```
+
+
+```{r}
+library(gganimate)
+animated_gapminder <- gapminder_plot + transition_time(year)+
+  labs(title = "Year: {frame_time}")
+animate(animated_gapminder, nframes = 100, renderer = gifski_renderer("animated_gapminder.gif"))
+```
+
+## Membuat Plot Tiap Benua
+
+```{r}
+library(gganimate)
+gapminder_plot + facet_wrap(~continent) +
+  transition_time(year) +
+  labs(title = "Year: {frame_time}")
+```
+
+## Membuat Plot Dinamis
+
+```{r}
+library(gganimate)
+gapminder_plot + transition_time(year) +
+  labs(title = "Year: {frame_time}") +
+  view_follow(fixed_y = TRUE)
+```
+
+## Membuat Bayangan Animasi
+
+```{r}
+library(gganimate)
+gapminder_plot + transition_time(year) +
+  labs(title = "Year: {frame_time}") +
+  shadow_wake(wake_length = 0.1, alpha = FALSE)
+```
+
+## Menampilkan Jejak Data
+
+```{r}
+library(gganimate)
+gapminder_plot + transition_time(year) +
+  labs(title = "Year: {frame_time}") +
+  shadow_mark(alpha = 0.3, size = 0.5)
+```
